@@ -190,7 +190,7 @@ object estafador {
 
 }
 
-object mezclador {
+class Mezclador {
 
 	var negocios = [ estafador, estafador ]
 
@@ -213,7 +213,7 @@ object mezclador {
 
 object amargo inherits Cafeteria {
 
-	var clientes = [ 1, 43, 43, 42 ]
+	var property clientes = [ 1, 43, 43, 42 ]
 
 	override method cuantaLeche() {
 		return 0

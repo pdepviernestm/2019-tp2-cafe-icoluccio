@@ -85,3 +85,34 @@ describe "los críticos" {
 
 }
 
+
+
+describe "los otros cafés" {
+	var mezclador = new Mezclador(negocios = [new Cafeteria(), amargo])
+	
+	test "el amargo hace un café con 0 de leche" {
+		assert.equals(0, amargo.hacerCafe().leche())
+	}
+	
+	test "el amargo hace un café con lo que pide su primer cliente de café" {
+		assert.equals(amargo.clientes().first(), amargo.hacerCafe().cafe())
+	}
+	
+
+	test "el mezclador con un amargo y un normal hace un café con café" {
+		assert.equals(11, mezclador.hacerCafe().cafe())
+	}
+	test "el mezclador con un amargo y un normal hace un café con leche" {
+		assert.equals(100, mezclador.hacerCafe().leche())
+	}
+	
+	
+	test "el estafador hace un café sin café" {
+		assert.equals(0, estafador.hacerCafe().cafe())
+	}
+	test "el estafador hace un café sin leche" {
+		assert.equals(0, estafador.hacerCafe().leche())
+	}
+
+}
+
