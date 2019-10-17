@@ -1,0 +1,87 @@
+import example.*
+
+describe "la cafetería normal" {
+
+	var cafeteria = new Cafeteria()
+
+	test "por defecto usa 10 granos " {
+		assert.equals(10, cafeteria.cuantoCafe())
+	}
+
+	test "por defecto usa 100 de leche" {
+		assert.equals(100, cafeteria.cuantaLeche())
+	}
+
+	test "si es rica rompe todo" {
+		cafeteria.situacionActual(rico)
+		assert.throwsExceptionLike(new NoSeLoBanca(), { cafeteria.servirCafe()})
+	}
+
+	test "hacer un café no baja la cantidad de gente" {
+		var genteAntes = cafeteria.genteEsperando()
+		cafeteria.hacerCafe()
+		var genteDespues = cafeteria.genteEsperando()
+		assert.equals(genteAntes, genteDespues)
+	}
+
+	test "servir un café baja la cantidad de gente" {
+		var genteAntes = cafeteria.genteEsperando()
+		cafeteria.servirCafe()
+		var genteDespues = cafeteria.genteEsperando()
+		assert.equals(genteAntes - 1, genteDespues)
+	}
+
+	test "si la máquina se usa mucho se rompe" {
+		var maquina = new Maquina(usos = 0)
+		assert.throwsExceptionLike(new SeRompio(), { maquina.usar(1)})
+	}
+
+	test "servir un café baja la cantidad de cafe" {
+		var granosAntes = cafeteria.granos()
+		cafeteria.servirCafe()
+		var granosDespues = cafeteria.granos()
+		assert.equals(granosAntes - 10, granosDespues)
+	}
+
+	test "servir un café devuelve un latte de café 10" {
+		assert.equals(10, cafeteria.servirCafe().cafe())
+	}
+
+}
+
+describe "los críticos" {
+
+	var latte = new Latte(cafe = 20, leche = 50, art = true)
+
+	test "el perfeccionista le da 0 puntos si no lo cumple" {
+		assert.equals(0, new Perfeccionista().puntuar(latte))
+	}
+
+	test "el perfeccionista le da 10 puntos si no lo cumple" {
+		latte.cafe(50)
+		assert.equals(10, new Perfeccionista().puntuar(latte))
+	}
+
+	test "el artista  le da 10 puntos si tiene mucha leche y arte" {
+		assert.equals(10, artista.puntuar(latte))
+	}
+
+	test "el artista  le da 5 puntos si tiene mucho café y arte" {
+		latte.cafe(453543)
+		assert.equals(5, artista.puntuar(latte))
+	}
+
+	test "el artista  le da 0 puntos si tiene poca leche y no tiene arte" {
+		latte.cafe(543534)
+		latte.art(false)
+		assert.equals(0, artista.puntuar(latte))
+	}
+
+	test "el jurado  puntua bien" {
+		latte.cafe(453543)
+		var jurado = new Jurado(criticos = [ artista, new Perfeccionista() ])
+		assert.equals(5, artista.puntuar(latte))
+	}
+
+}
+

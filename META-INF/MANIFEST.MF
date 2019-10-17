@@ -11,11 +11,8 @@ Require-Bundle: com.ibm.icu,
  org.eclipse.xtend,
  org.eclipse.xtend.typesystem.emf,
  org.eclipse.xpand,
-<<<<<<< HEAD
  de.itemis.xtext.antlr;resolution:=optional,
  org.eclipse.emf.mwe2.launch;resolution:=optional,
-=======
->>>>>>> branch 'master' of https://github.com/pdepviernestm/2019-tp2-cafe-icoluccio.git
  org.uqbar.project.wollok,
  org.uqbar.project.wollok.launch,
  org.uqbar.project.wollok.lib,
