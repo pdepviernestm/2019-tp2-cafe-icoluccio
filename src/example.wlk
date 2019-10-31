@@ -33,7 +33,19 @@ class Latte {
 	var property art
 
 	method proporcion() {
+		if(leche == 0)
+			return 1
 		return cafe / leche
+	}
+	
+	method contenidoTotal() {
+		return cafe + leche
+	}
+	
+	method cualTeConvieneMas(critico1, critico2){
+		if(critico1.puntuar(self) > critico2.puntuar(self))
+			return critico1
+		return critico2
 	}
 
 }
@@ -105,8 +117,7 @@ class Cafeteria {
 object cafeinomano {
 
 	method puntuar(latte) {
-		// hacer esto bien
-		return latte.cafe() / latte.leche() * 100
+		return 10 * latte.cafe() / latte.contenidoTotal()
 	}
 
 }
@@ -176,6 +187,12 @@ class Jurado {
 		return criticos.sum({ critico => critico.puntuar(latte) }) / criticos.size()
 	}
 
+
+	method elQueMasConviene(latte) {
+		criticos.sortBy({ critico, otroCritico => critico.puntuar(latte) > otroCritico.puntuar(latte)})
+		return criticos.first()
+	}
+
 }
 
 object estafador {
@@ -227,7 +244,7 @@ object amargo inherits Cafeteria {
 		if (clientes.size() < 1) {
 			throw new NoHayClientes()
 		}
-		clientes.drop(1)
+		clientes.remove(clientes.first())
 	}
 
 }
